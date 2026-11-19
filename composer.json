@@ -1,19 +1,54 @@
 {
-    
-    "name": "sena/citas",
-    "authors": [
-        {
-            "name": "John Becerra",
-            "email": "jfbecerra@sena.edu.co"
-        }
-    ],
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "lovematch/app",
+    "type": "project",
+    "description": "Red social de citas construida con Laravel.",
+    "keywords": ["lovematch", "laravel"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^12.0",
+        "laravel/tinker": "^2.10.1"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.24",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^11.5.50"
+    },
     "autoload": {
         "psr-4": {
-            "Adso\\": "app/"
+            "App\\": "app/",
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
-    "require": {
-        "phpmailer/phpmailer": "^6.8",
-        "nesbot/carbon": "^2.70"
-    }
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
 }
